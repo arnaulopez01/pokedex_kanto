@@ -3,11 +3,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('pokemon-modal');
     const closeModal = document.querySelector('.close');
     const searchInput = document.getElementById('search');
+    const audio = document.getElementById('background-music');
+    const muteButton = document.getElementById('mute-button');
 
-    // Función para capitalizar nombres
-    function capitalizeName(name) {
-        return name.charAt(0).toUpperCase() + name.slice(1);
+    // Ajusta el volumen inicial
+    audio.volume = 0.3; // 30% del volumen máximo
+
+    // Variable para rastrear el estado de silencio
+    let isMuted = false;
+
+    // Reproducir audio después de la interacción del usuario
+    function playAudioOnInteraction() {
+        audio.play().then(() => {
+            console.log('Audio reproducido correctamente.');
+        }).catch((error) => {
+            console.error('Error al reproducir el audio:', error);
+        });
+
+        // Eliminar el event listener después de la primera interacción
+        document.removeEventListener('click', playAudioOnInteraction);
+        document.removeEventListener('keydown', playAudioOnInteraction);
     }
+
+    // Escuchar eventos de interacción (clic o tecla)
+    document.addEventListener('click', playAudioOnInteraction);
+    document.addEventListener('keydown', playAudioOnInteraction);
+
+    // Función para alternar el silencio
+    function toggleMute() {
+        if (isMuted) {
+            audio.play(); // Reactiva la música
+            muteButton.textContent = '🔈'; // Cambia el ícono a altavoz activo
+        } else {
+            audio.pause(); // Silencia la música
+            muteButton.textContent = '🔇'; // Cambia el ícono a altavoz silenciado
+        }
+        isMuted = !isMuted; // Cambia el estado de silencio
+    }
+
+    // Asigna la función al botón
+    muteButton.addEventListener('click', toggleMute);
 
     // Lista local de los 151 Pokémon de Kanto
     const kantoPokemon = [
@@ -35,6 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
         "snorlax", "articuno", "zapdos", "moltres", "dratini", "dragonair", "dragonite",
         "mewtwo", "mew"
     ];
+
+    // Función para capitalizar nombres
+    function capitalizeName(name) {
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    }
 
     // Función para obtener los datos de un Pokémon por su nombre
     async function getPokemonData(name) {
@@ -123,30 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Escuchar el evento de entrada en el buscador
     searchInput.addEventListener('input', filterPokemon);
 
+    // Mostrar los Pokémon al cargar la página
     displayPokemon();
 });
-
-// Obtén los elementos del DOM
-const audio = document.getElementById('background-music');
-const muteButton = document.getElementById('mute-button');
-
-// Ajusta el volumen inicial
-audio.volume = 0.3; // 30% del volumen máximo
-
-// Variable para rastrear el estado de silencio
-let isMuted = false;
-
-// Función para alternar el silencio
-function toggleMute() {
-    if (isMuted) {
-        audio.play(); // Reactiva la música
-        muteButton.textContent = '🔈'; // Cambia el ícono a altavoz activo
-    } else {
-        audio.pause(); // Silencia la música
-        muteButton.textContent = '🔇'; // Cambia el ícono a altavoz silenciado
-    }
-    isMuted = !isMuted; // Cambia el estado de silencio
-}
-
-// Asigna la función al botón
-muteButton.addEventListener('click', toggleMute);

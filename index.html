@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex de Kanto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Pokédex de Kanto</h1>
+        <input type="text" id="search" placeholder="Buscar">
+    </header>
+    <main>
+        <div id="pokemon-list" class="pokemon-grid"></div>
+    </main>
+
+    <!-- Modal para detalles del Pokémon -->
+    <div id="pokemon-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-name"></h2>
+            <img id="modal-image" src="" alt="">
+            <p><strong>Número:</strong> <span id="modal-id"></span></p>
+            <p><strong>Tipo(s):</strong> <span id="modal-types"></span></p>
+            <p><strong>Altura:</strong> <span id="modal-height"></span></p>
+            <p><strong>Peso:</strong> <span id="modal-weight"></span></p>
+            <p><strong>Movimientos:</strong></p>
+            <ul id="modal-moves"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

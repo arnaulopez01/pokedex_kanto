@@ -125,3 +125,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayPokemon();
 });
+
+// Obtén los elementos del DOM
+const audio = document.getElementById('background-music');
+const muteButton = document.getElementById('mute-button');
+
+// Ajusta el volumen inicial
+audio.volume = 0.3; // 30% del volumen máximo
+
+// Variable para rastrear el estado de silencio
+let isMuted = false;
+
+// Función para alternar el silencio
+function toggleMute() {
+    if (isMuted) {
+        audio.play(); // Reactiva la música
+        muteButton.textContent = '🔈'; // Cambia el ícono a altavoz activo
+    } else {
+        audio.pause(); // Silencia la música
+        muteButton.textContent = '🔇'; // Cambia el ícono a altavoz silenciado
+    }
+    isMuted = !isMuted; // Cambia el estado de silencio
+}
+
+// Asigna la función al botón
+muteButton.addEventListener('click', toggleMute);
